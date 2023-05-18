@@ -11,7 +11,7 @@ const Card = (props) => {
 	return (
 		<TouchableOpacity
 			onPress={() =>
-				props.navigation.navigate("HomeDetails", { houseId: props._id })
+				props.navigation.navigate("HomeDetails", { houseId: props.id })
 			}
 		>
 			<View style={styles.card}>
@@ -27,7 +27,7 @@ const Card = (props) => {
 						source={{ uri: props.image }}
 						style={styles.image}
 					>
-						<Text style={styles.price}>{props.price}</Text>
+						<Text style={styles.price}>${props.price}</Text>
 						<View style={styles.year}>
 							<Text style={styles.yearText}>
 								{props.yearBuilt}

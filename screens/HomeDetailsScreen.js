@@ -6,39 +6,38 @@ import { useSelector } from "react-redux";
 const HomeDetailsScreen = (props) => {
 	const { houseId } = props.route.params;
 
-	const house = useSelector((state) => {
-		state.house.houses.find((house) => house._id === houseId);
-	});
+	const house = useSelector((state) =>
+		state.house.houses.find((house) => house._id == houseId)
+	);
+
+	console.log(">>>>", house);
 	return (
 		<ScrollView style={styles.container}>
 			<View style={styles.heading}>
-				<Text style={styles.title}>HomeDetailsScreen</Text>
+				<Text style={styles.title}>{house.title}</Text>
 			</View>
 			<View>
-				<Image
-					source={require("../assets/images/house.png")}
-					style={styles.image}
-				/>
+				<Image source={{ uri: house.image }} style={styles.image} />
 			</View>
 			<View style={styles.group}>
 				<Text style={styles.label}>Home Type: </Text>
-				<Text style={styles.value}>Flat </Text>
+				<Text style={styles.value}>{house.homeType} </Text>
 			</View>
 			<View style={styles.group}>
 				<Text style={styles.label}>Price: </Text>
-				<Text style={styles.value}>$200,000 </Text>
+				<Text style={styles.value}>${house.price} </Text>
 			</View>
 			<View style={styles.group}>
 				<Text style={styles.label}>Year Built: </Text>
-				<Text style={styles.value}>2020 </Text>
+				<Text style={styles.value}>{house.yearBuilt} </Text>
 			</View>
 			<View style={styles.group}>
 				<Text style={styles.label}>Address: </Text>
-				<Text style={styles.value}>This is the Address</Text>
+				<Text style={styles.value}>{house.address}</Text>
 			</View>
 			<View style={styles.group}>
 				<Text style={styles.label}>Description: </Text>
-				<Text style={styles.value}>This is the Description</Text>
+				<Text style={styles.value}>{house.description}</Text>
 			</View>
 		</ScrollView>
 	);
