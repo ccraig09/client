@@ -1,4 +1,4 @@
-import { FETCH_HOUSES } from "../actions/houseAction";
+import { CREATE_HOUSES, FETCH_HOUSES } from "../actions/houseAction";
 
 const initialState = {
 	houses: [],
@@ -10,6 +10,12 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				houses: action.payload,
+			};
+		case CREATE_HOUSES:
+			console.log(">>>", action.payload);
+			return {
+				...state,
+				houses: state.houses.concat(action.payload.data),
 			};
 	}
 
