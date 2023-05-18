@@ -7,27 +7,39 @@ import {
 } from "react-native";
 import React from "react";
 
-const Card = () => {
+const Card = (props) => {
 	return (
-		<TouchableOpacity onPre>
+		<TouchableOpacity
+			onPress={() =>
+				props.navigation.navigate("HomeDetails", { houseId: props._id })
+			}
+		>
 			<View style={styles.card}>
 				<View style={styles.titleContainer}>
-					<Text style={styles.title}>Modern 3-bedroom flat</Text>
+					<Text style={styles.title}>
+						{props.title.length > 30
+							? props.title.slice(0, 30) + "..."
+							: props.title}
+					</Text>
 				</View>
 				<View style={styles.imageContainer}>
 					<ImageBackground
-						source={require("../assets/images/house.png")}
+						source={{ uri: props.image }}
 						style={styles.image}
 					>
-						<Text style={styles.price}>$200,000</Text>
+						<Text style={styles.price}>{props.price}</Text>
 						<View style={styles.year}>
-							<Text style={styles.yearText}>2020</Text>
+							<Text style={styles.yearText}>
+								{props.yearBuilt}
+							</Text>
 						</View>
 					</ImageBackground>
 				</View>
 				<View style={styles.description}>
 					<Text style={styles.descriptionText}>
-						This is the description
+						{props.description.length > 100
+							? props.description.slice(0, 100) + "..."
+							: props.description}
 					</Text>
 				</View>
 			</View>
