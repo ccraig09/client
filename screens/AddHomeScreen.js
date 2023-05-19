@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
 	Button,
 	ScrollView,
@@ -7,8 +8,8 @@ import {
 	View,
 	KeyboardAvoidingView,
 	Alert,
+	ActivityIndicator,
 } from "react-native";
-import React from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -26,6 +27,15 @@ const formmSchema = yup.object({
 });
 
 const AddHomeScreen = () => {
+	const [isLoading, setIsLoading] = useState(false);
+
+	if (isLoading) {
+		return (
+			<View style={styles.centered}>
+				<ActivityIndicator size={"large"} />
+			</View>
+		);
+	}
 	const dispatch = useDispatch();
 	return (
 		<KeyboardAvoidingView
@@ -47,11 +57,14 @@ const AddHomeScreen = () => {
 					validationSchema={formmSchema}
 					onSubmit={(values) => {
 						console.log(values);
+						setIsLoading(true);
 						dispatch(houseAction.createHome(values))
 							.then(() => {
+								setIsLoading(false);
 								Alert.alert("Created Successfully");
 							})
 							.catch(() => {
+								setIsLoading(false);
 								Alert.alert("An error occured. Try again", [
 									{ text: "OK" },
 								]);
@@ -198,5 +211,10 @@ const styles = StyleSheet.create({
 	},
 	error: {
 		color: "red",
+	},
+	centered: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 });
